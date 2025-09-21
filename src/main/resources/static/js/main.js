@@ -124,3 +124,10 @@
     
 })(jQuery);
 
+// 3주차 연습문제(돌아가기 버튼 기능 수정(창 닫기, alert))
+const confirmClose = document.getElementById('closebtn');
+
+confirmClose.addEventListener('click', () => {
+    alert("정말 창을 닫으시겠습니까?")
+    window.close();
+});
