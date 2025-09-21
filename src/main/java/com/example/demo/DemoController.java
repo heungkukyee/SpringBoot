@@ -11,4 +11,14 @@ public class DemoController {
         model.addAttribute("data", " 방갑습니다."); // model 설정
         return "hello"; // hello.html 연결
     }
+
+    @GetMapping("/hello2") 
+    public String hello2(Model model) {
+        model.addAttribute("name", "유장건님.");
+        model.addAttribute("hello", "방갑습니다.");
+        model.addAttribute("today", "오늘.");
+        model.addAttribute("weather", "날씨는.");
+        model.addAttribute("good", "매우 좋습니다."); 
+        return "hello2"; 
+    }
 }
