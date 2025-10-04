@@ -1,15 +1,20 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.domain.Article;
+import com.example.demo.model.service.AddArticleRequest;
 // import com.example.demo.model.domain.TestDB;
 import com.example.demo.model.service.BlogService; // 최상단 서비스 클래스 연동 추가
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.http.HttpStatus;
+// import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller // 컨트롤러 어노테이션 명시
 public class BlogController {
@@ -28,5 +33,19 @@ public class BlogController {
         List<Article> list = blogService.findAll(); // 게시판 리스트
         model.addAttribute("articles", list); // 모델에 추가
         return "article_list"; // .HTML 연결
+    }
+
+    //5주차 연습문제(RestController -> Controller 변경, 리다이렉트 추가)
+    @PostMapping("/api/articles") // post 요청
+    public String addArticle(@ModelAttribute AddArticleRequest request) {
+        blogService.save(request); // 게시글 저장 로직 재활용
+
+        // 리턴 타입은 String, 리턴: return "redirect:/article_list"
+        return "redirect:/article_list";
+    }
+
+    @GetMapping("/favicon.ico")
+    public void favicon() {
+        // 아무 작업도 하지 않음/
     }
 }
