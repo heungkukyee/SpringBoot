@@ -21,7 +21,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="article : ${article}">
+            <tr th:each="article : ${article}"> <!-- articles를 article로 변경(리스트를 가져오려고) -->
               <td th:text="${article.id}"></td>
               <td th:text="${article.title}"></td>
               <td th:text="${article.content}"></td>
