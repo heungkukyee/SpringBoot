@@ -33,7 +33,7 @@ public class BlogController {
   // return "article_list";
   // }
 
-  @GetMapping("/article_list") // 게시판 링크 지정
+  /* @GetMapping("/article_list") // 게시판 링크 지정
   public String article_list(Model model) {
     List<Article> list = blogService.findAll(); // 게시판 리스트
     model.addAttribute("articles", list); // 모델에 추가
@@ -47,14 +47,14 @@ public class BlogController {
 
     // 리턴 타입은 String, 리턴: return "redirect:/article_list"
     return "redirect:/article_list";
-  }
+  } */
 
   @GetMapping("/favicon.ico")
   public void favicon() {
     // 아무 작업도 하지 않음/
   }
 
-  @GetMapping("/article_edit/{id}") // 게시판 링크 지정
+  /* @GetMapping("/article_edit/{id}") // 게시판 링크 지정
   public String article_edit(Model model, @PathVariable Long id) {
     Optional<Article> list = blogService.findById(id); // 선택한 게시판 글
     if (list.isPresent()) {
@@ -64,7 +64,7 @@ public class BlogController {
       return "/error_page/article_error"; // 오류 처리 페이지로 연결(이름 수정됨)
     }
     return "article_edit"; // .HTML 연결
-  }
+  } */
 
   @PutMapping("/api/article_edit/{id}")
   public String updateArticle(@PathVariable Long id, @ModelAttribute AddArticleRequest request) {
@@ -95,5 +95,24 @@ public class BlogController {
       return "/error_page/article_error"; // 오류 처리 페이지로 연결
     }
     return "board_view"; // .HTML 연결
+  }
+
+  // 10주차 연습문제(게시판 수정)
+  @GetMapping("/board_edit/{id}") // 게시판 수정 페이지 링크 지정
+  public String board_edit(Model model, @PathVariable Long id) {
+    Optional<Board> list = blogService.findById(id); // 선택한 게시판 글
+    if (list.isPresent()) {
+      model.addAttribute("board", list.get()); // 존재하면 Board 객체를 모델에 추가
+    } else {
+      // 처리할 로직 추가 (예: 오류 페이지로 리다이렉트, 예외 처리 등)
+      return "/error_page/article_error"; // 오류 처리 페이지로 연결
+    }
+    return "board_edit"; // .HTML 연결
+  }
+
+  @PutMapping("/api/board_edit/{id}")
+  public String updateBoard(@PathVariable Long id, @ModelAttribute AddArticleRequest request) {
+    blogService.update(id, request);
+    return "redirect:/board_list"; // 글 수정 이후 목록으로 리다이렉트
   }
 }
