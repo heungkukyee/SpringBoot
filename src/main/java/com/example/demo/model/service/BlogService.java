@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.domain.Article; // Article은 남겨두세요 (BlogController에서 참조)
 import com.example.demo.model.domain.Board;
@@ -23,42 +25,35 @@ public class BlogService {
   // return blogRepository.findAll();
   // }
 
-  // Article save(AddArticleRequest request)를 Board save로 대체했기 때문에,
-  // Article을 사용하는 기존 save 메소드를 명시적으로 복구하거나 주석 처리해야 합니다.
-  // 여기서는 교안에 따라 Article 관련 메소드는 주석 처리합니다.
+  // public Article save(AddArticleRequest request) {
+  // return blogRepository.save(request.toEntity());
+  // }
 
-  // @PostMapping("/api/articles")에서 사용하는 Article.save 로직은 주석 처리합니다.
-  /*
-   * public Article save(AddArticleRequest request) {
-   * return blogRepository.save(request.toEntity());
-   * }
-   * 
-   * // BlogController에서 사용하는 Article.findById 로직은 주석 처리합니다.
-   * public Optional<Article> findById(Long id) { // 게시판 특정 글 조회
-   * // return blogRepository.findById(id);
-   * return Optional.empty(); // 임시로 빈 값 반환
-   * }
-   * 
-   * // BlogController에서 사용하는 Article.update 로직은 주석 처리합니다.
-   * public void update(Long id, AddArticleRequest request) {
-   * // Optional<Article> optionalArticle = blogRepository.findById(id);
-   * // optionalArticle.ifPresent(article -> {
-   * // article.update(request.getTitle(), request.getContent());
-   * // blogRepository.save(article);
-   * // });
-   * }
-   */
+  // BlogController에서 사용하는 Article.findById 주석 처리
+  // public Optional<Article> findById(Long id) { // 게시판 특정 글 조회
+  // return blogRepository.findById(id);
+  // return Optional.empty(); // 임시로 빈 값 반환
+  // }
+
+  // BlogController에서 사용하는 Article.update 주석 처리
+  // public void update(Long id, AddArticleRequest request) {
+  // Optional<Article> optionalArticle = blogRepository.findById(id);
+  // optionalArticle.ifPresent(article -> {
+  // article.update(request.getTitle(), request.getContent());
+  // blogRepository.save(article);
+  // });
+  // }
 
   public void delete(Long id) {
     blogRepository.deleteById(id);
   }
 
-  // BoardController에서 Board를 리턴하는 findAll을 명시합니다.
+  // BoardController에서 Board를 리턴하는 findAll을 명시
   public List<Board> findAll() { // 게시판 전체 목록 조회
     return blogRepository.findAll();
   }
 
-  // BoardController에서 Board를 리턴하는 findById를 명시합니다.
+  // BoardController에서 Board를 리턴하는 findById를 명시
   public Optional<Board> findById(Long id) { // 게시판 특정 글 조회
     return blogRepository.findById(id);
   }
@@ -73,4 +68,17 @@ public class BlogService {
       blogRepository.save(board); // Board 객체에 저장
     });
   }
+
+  public Board save(AddArticleRequest request) {
+    // DTO가 없는 경우 이곳에 직접 구현 가능
+    return blogRepository.save(request.toEntity());
+  }
+
+  public Page<Board> findAll(Pageable pageable) {
+    return blogRepository.findAll(pageable);
+  }
+
+  public Page<Board> searchByKeyword(String keyword, Pageable pageable) {
+    return blogRepository.findByTitleContainingIgnoreCase(keyword, pageable);
+  } // LIKE 검색 제공(대소문자 무시)
 }

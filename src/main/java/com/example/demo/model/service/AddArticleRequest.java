@@ -1,7 +1,7 @@
 package com.example.demo.model.service;
 
 import lombok.*; // 어노테이션 자동 생성
-import com.example.demo.model.domain.Article;
+// import com.example.demo.model.domain.Article;
 import com.example.demo.model.domain.Board;
 
 @NoArgsConstructor // 기본 생성자 추가
@@ -21,7 +21,6 @@ import com.example.demo.model.domain.Board;
 public class AddArticleRequest {
   private String title;
   private String content;
-  // Board 모델에 추가된 필드들
   private String user;
   private String newdate;
   private String count;
