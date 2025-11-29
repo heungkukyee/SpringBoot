@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.domain.Article;
+// import com.example.demo.model.domain.Article;
 import com.example.demo.model.domain.Board;
 import com.example.demo.model.service.AddArticleRequest;
 // import com.example.demo.model.domain.TestDB;
@@ -8,7 +8,7 @@ import com.example.demo.model.service.BlogService; // 최상단 서비스 클래
 
 import jakarta.servlet.http.HttpSession;
 
-import java.util.List;
+// import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;

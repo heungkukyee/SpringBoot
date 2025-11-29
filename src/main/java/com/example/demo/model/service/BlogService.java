@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.example.demo.model.domain.Article; // Article은 남겨두세요 (BlogController에서 참조)
+import com.example.demo.model.domain.Article; 
 import com.example.demo.model.domain.Board;
-import com.example.demo.model.repository.BlogRepository;
+// import com.example.demo.model.repository.BlogRepository;
 import com.example.demo.model.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class BlogService {
   // });
   // }
 
-  public void delete(Long id) {
+  public void delete(long id) {
     blogRepository.deleteById(id);
   }
 
@@ -54,12 +54,12 @@ public class BlogService {
   }
 
   // BoardController에서 Board를 리턴하는 findById를 명시
-  public Optional<Board> findById(Long id) { // 게시판 특정 글 조회
+  public Optional<Board> findById(long id) { // 게시판 특정 글 조회
     return blogRepository.findById(id);
   }
 
   // 10주차 연습문제(게시글 수정)
-  public void update(Long id, AddArticleRequest request) {
+  public void update(long id, AddArticleRequest request) {
     Optional<Board> optionalBoard = blogRepository.findById(id); // 단일 글 조회
     optionalBoard.ifPresent(board -> { // 값이 있으면
       board.update(request.getTitle(), request.getContent(),
