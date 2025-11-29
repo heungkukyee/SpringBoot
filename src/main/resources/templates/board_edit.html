@@ -10,10 +10,16 @@
     />
   </head>
   <body>
-    <div class="container">
-      <h1 class="mt-5">NEW 블로그 게시판</h1>
+    <div class="d-flex justify-content-between align-items-center mt-4 p-3 border rounded bg-light container">
+      <h1>NEW 블로그 게시판</h1>
+      <div class="text-right">
+        <span
+          class="font-weight-bold text-primary"></span>
+        <a class="btn btn-sm btn-outline-danger ml-3" th:href="@{/api/logout}">로그아웃</a>
+      </div>
+    </div>
       <!-- 게시글 리스트-->
-      <div class="mt-5">
+      <div class="mt-5 container">
         <h2>게시글 목록</h2>
         <table class="table table-bordered">
           <thead>
@@ -39,7 +45,7 @@
         </table>
       </div>
       <!--게시글 수정 폼-->
-      <div class="mt-4">
+      <div class="mt-4 container">
         <h2>게시글을 수정합니다.</h2>
         <form th:action="@{/api/board_edit/{id}(id=${board.id})}" method="post" name="content">
           <input type="hidden" name="_method" value="put" />
@@ -60,6 +66,5 @@
           <button type="submit" class="btn btn-primary">수정</button>
         </form>
       </div>
-    </div>
   </body>
 </html>
