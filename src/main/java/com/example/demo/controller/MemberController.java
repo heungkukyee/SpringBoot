@@ -17,6 +17,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import org.springframework.ui.Model;
 
@@ -31,7 +32,7 @@ public class MemberController {
   }
 
   @PostMapping("/api/members") // 회원 가입 저장
-  public String addmembers(@ModelAttribute AddMemberRequest request) {
+  public String addmembers(@Valid @ModelAttribute AddMemberRequest request) {
     memberService.saveMember(request);
     return "join_end"; // .HTML 연결
   }

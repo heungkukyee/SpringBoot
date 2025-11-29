@@ -3,14 +3,18 @@ package com.example.demo.model.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.example.demo.model.domain.Member;
 import com.example.demo.model.repository.MemberRepository;
 
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Service
+// 12주차 연습문제(입력값 필터링)
+@Validated
 @Transactional // 트랜잭션 처리(클래스 내 모든 메소드 대상)
 @RequiredArgsConstructor
 @Getter
@@ -24,9 +28,10 @@ public class MemberService {
       throw new IllegalStateException("이미 가입된 회원입니다."); // 예외처리
     }
   }
-
-  public Member saveMember(AddMemberRequest request) {
+  // 12주차 연습문제(입력값 필터링)
+  public Member saveMember(@Valid AddMemberRequest request) {
     validateDuplicateMember(request); // 이메일 체크
+    
     String encodedPassword = passwordEncoder.encode(request.getPassword());
     request.setPassword(encodedPassword); // 암호화된 비밀번호 설정
     return memberRepository.save(request.toEntity());
