@@ -108,6 +108,11 @@ public class BlogController {
     } else {
       list = blogService.searchByKeyword(keyword, pageable); // 키워드로 검색
     }
+
+    // 11주차 연습문제1(게시글 글번호)
+    int startNum = (page * 4) + 1; // 시작 번호 계산
+
+    model.addAttribute("startNum", startNum); // 시작 번호를 모델에 추가
     model.addAttribute("email", email); // 로그인 사용자(이메일)
     model.addAttribute("boards", list); // 모델에 추가
     model.addAttribute("totalPages", list.getTotalPages()); // 페이지 크기
