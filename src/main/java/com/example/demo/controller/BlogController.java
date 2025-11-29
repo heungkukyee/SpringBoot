@@ -122,10 +122,16 @@ public class BlogController {
   }
 
   @GetMapping("/board_view/{id}") // 게시판 링크 지정
-  public String board_view(Model model, @PathVariable Long id) {
+  public String board_view(Model model, @PathVariable Long id, HttpSession session) {
+
+    // 13주차 연습문제2 (작성자만 수정/삭제)
+    String userEmail = (String) session.getAttribute("email");
+
     Optional<Board> list = blogService.findById(id); // 선택한 게시판 글
     if (list.isPresent()) {
       model.addAttribute("boards", list.get()); // 존재할 경우 실제 Board 객체를 모델에 추가
+      // 13주차 연습문제2 (작성자만 수정/삭제)
+      model.addAttribute("sessionEmail", userEmail); // 세션에 저장된 이메일을 모델에 추가
     } else {
       // 처리할 로직 추가 (예: 오류 페이지로 리다이렉트, 예외 처리 등)
       return "/error_page/article_error"; // 오류 처리 페이지로 연결

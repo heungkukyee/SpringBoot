@@ -52,7 +52,8 @@
               <td th:text="${board.content}"></td>
             </tr>
             <tr th:each="board : ${boards}">
-              <td>
+              <!-- 13주차 연습문제2 (작성자만 수정/삭제) -->
+              <td th:if="${board.user == sessionEmail}">
                 <!-- 수정 버튼-->
                 <a class="btn btn-warning" th:href="@{/board_edit/{id}(id=${board.id})}">수정</a>
                 <!-- 삭제 버튼-->
