@@ -158,8 +158,14 @@ public class BlogController {
     return "board_write";
   }
 
+
+  // 13주차 연습문제1(로그인한 사용자로 작성자 저장)
   @PostMapping("/api/boards") // 글쓰기 게시판 저장
-  public String addboards(@ModelAttribute AddArticleRequest request) {
+  public String addboards(@ModelAttribute AddArticleRequest request, HttpSession session) {
+
+    String userEmail = (String) session.getAttribute("email"); // 세션에서 이메일 가져오기
+    request.setUser(userEmail); // 세션에서 가져온 이메일로 덮어쓰기
+
     blogService.save(request);
     return "redirect:/board_list"; // .HTML 연결
   }
