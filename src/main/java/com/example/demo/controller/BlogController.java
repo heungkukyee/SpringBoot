@@ -163,4 +163,11 @@ public class BlogController {
     blogService.save(request);
     return "redirect:/board_list"; // .HTML 연결
   }
+
+  // 11주차 연습문제2(게시글 삭제)
+  @DeleteMapping("/api/board_delete/{id}")
+    public String deleteBoard(@PathVariable Long id) {
+        blogService.delete(id); // 서비스의 delete 메서드 호출
+        return "redirect:/board_list"; // 삭제 후 목록 페이지로 이동
+    }
 }
